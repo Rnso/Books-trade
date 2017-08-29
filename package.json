@@ -9,7 +9,7 @@
     "build": "NODE_ENV=development webpack -wd",
     "prod": "NODE_ENV=production webpack -wp"
   },
-  "author": "aso",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.16.2",

@@ -66,6 +66,7 @@ class Profile extends Component {
                     store.email = this.refs.email.value
                     store.city = this.refs.city.value
                     store.country = this.refs.country.value
+                    localStorage.store = JSON.stringify(store)
                     let obj = {}
                     obj.name = this.refs.name.value
                     obj.email = this.refs.email.value
@@ -82,7 +83,6 @@ class Profile extends Component {
         let book = this.refs.book.value
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${book}&maxResults=40`)
             .then(res => {
-                console.log(res.data.items)
                 this.setState({ books: res.data.items })
                 store.searched_book = this.refs.book.value
                 store.books = res.data.items
@@ -107,6 +107,10 @@ class Profile extends Component {
             .then(res => {
                 let temp = this.state.totalsharedbooks + 1
                 this.setState({ totalsharedbooks: temp })
+                this.state.books.splice(id, 1)
+                this.setState(this.state.books)
+                store.books = this.state.books
+                localStorage.store = JSON.stringify(store)
             })
             .catch(console.error)
     }
@@ -214,7 +218,7 @@ class Profile extends Component {
                             <div className="modal-body">
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
                                 <br />
-                               <div className='col-md-12'></div>
+                                <div className='col-md-12'></div>
                                 {this.state.modalbooks.map((item, i) => {
                                     return <div key={i} className='col-md-4 text-center'>
                                         <h4>{item.title}</h4>
@@ -264,7 +268,7 @@ class Profile extends Component {
                             <div className='text-center'>
                                 <h4>{item.volumeInfo.title}</h4>
                                 <img src={image} alt={item.volumeInfo.title} height='180px' />
-                                <button id={i} className='btn btn-default' onClick={this.addBooks}><i className="fa fa-plus"></i>&nbsp;&nbsp; ADD TO LIBRARY</button>
+                                <button id={i} className='btn btn-default' onClick={this.addBooks}><i className="fa fa-plus"></i>&nbsp;&nbsp; POST TO LIBRARY</button>
                             </div>
                         </div>
                     })}
