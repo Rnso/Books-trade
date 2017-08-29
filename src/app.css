@@ -1,0 +1,70 @@
+body{
+    background-color: black;
+}
+.footer{
+    color: white;
+}
+.navbar-inverse{
+    background-color: white;
+}
+.navbar{
+    border-radius: 0px;
+}
+.navbar-inverse .navbar-nav>li>a{
+    color: black;
+}
+.navbar-inverse .navbar-nav>li>a:hover{
+    color: gray;
+}
+.navbar-inverse .navbar-nav>li>a:focus{
+    color: gray;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #333;
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: #ddd;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: white;
+}
+.about{
+    color: white;
+    font-family: sans-serif;
+    font-size: 18px;
+}
+.textshadow{
+     color: white;
+     text-shadow: 1px 1px 30px white, 0 0 50px lightgrey, 0 0 50px lightgrey;
+}
+.font{
+    color: white;
+}
+.editprofile{
+    color: #428bca;
+    font-size: 18px;
+}
+.form{
+    width: 700px;
+}
+.profile{
+    background-color: white;
+    font-size: 20px;
+}
+.books{
+    height: 300px;
+    color: #FFD700;
+}
+.book_btn{
+    width: 200px;
+}
+.library{
+    height: 380px;
+    color: #FFD700;
+}
+a:hover{
+ opacity: 0.4;
+}
+.modal-footer{
+    border-top: 1px solid white;
+}
