@@ -8,7 +8,7 @@ import Index from '../index'
 class Register extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { errormsg: false }
         this.submit = this.submit.bind(this)
         this.redirectToLogin = this.redirectToLogin.bind(this)
     }
@@ -22,16 +22,21 @@ class Register extends Component {
         let shared_ids = []
         let yourrequest_ids = []
         let otherrequest_ids = []
-        axios.post(constants.serverUrl + `/api/register`, { name, email, pwd, city, country, shared_ids, yourrequest_ids, otherrequest_ids })
-            .then(res => {
-                this.refs.name.value = ''
-                this.refs.email.value = ''
-                this.refs.pwd.value = ''
-                this.refs.city.value = ''
-                this.refs.country.value = ''
-                $('#myModal').modal('show')
-            })
-            .catch(console.error)
+        if (name !== '' && email !== '' && pwd !== '' && city !== '' && country !== '') {
+            axios.post(constants.serverUrl + `/api/register`, { name, email, pwd, city, country, shared_ids, yourrequest_ids, otherrequest_ids })
+                .then(res => {
+                    this.refs.name.value = ''
+                    this.refs.email.value = ''
+                    this.refs.pwd.value = ''
+                    this.refs.city.value = ''
+                    this.refs.country.value = ''
+                    $('#myModal').modal('show')
+                })
+                .catch(console.error)
+        }
+        else {
+            this.setState({ errormsg: true })
+        }
     }
     redirectToLogin() {
         ReactDOM.render(<Index />, document.getElementById('app'))
@@ -40,7 +45,7 @@ class Register extends Component {
     render() {
         const { history } = this.props
         return (
-            <div className='container font'><br/>
+            <div className='container font'><br />
                 <div className='text-center'>
                     <h2 className='textshadow'>SIGN UP FORM</h2><br /><br />
                 </div>
@@ -70,6 +75,7 @@ class Register extends Component {
                             <button type='submit' className="btn btn-warning">Submit</button>
                         </div>
                     </form><br />
+                    {this.state.errormsg ? <div className='alert alert-danger'>Enter all the fields</div> : ''}
                     <div id="myModal" className="modal fade" role="dialog">
                         <div className="modal-dialog">
                             <div className="modal-content">
