@@ -19,8 +19,7 @@ class Library extends Component {
                 if (res.data.length != 0) {
                     this.setState({ sharedbooks: res.data })
                     store.sharedbooks = res.data
-                    localStorage.store = JSON.stringify(store)
-                    //console.log(localStorage.store)
+                    sessionStorage.store = JSON.stringify(store)
                 }
             })
             .catch(console.error)
@@ -45,7 +44,7 @@ class Library extends Component {
                 console.log(res)
                 this.setState({ sharedbooks: res.data })
                 store.sharedbooks = res.data
-                localStorage.store = JSON.stringify(store)
+                sessionStorage.store = JSON.stringify(store)
             })
             .catch(console.error)
     }
@@ -57,7 +56,7 @@ class Library extends Component {
             .then(res => {
                 this.setState({ sharedbooks: res.data })
                 store.sharedbooks = res.data
-                localStorage.store = JSON.stringify(store)
+                sessionStorage.store = JSON.stringify(store)
             })
             .catch(console.error)
     }

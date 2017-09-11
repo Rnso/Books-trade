@@ -66,7 +66,7 @@ class Profile extends Component {
                     store.email = this.refs.email.value
                     store.city = this.refs.city.value
                     store.country = this.refs.country.value
-                    localStorage.store = JSON.stringify(store)
+                    sessionStorage.store = JSON.stringify(store)
                     let obj = {}
                     obj.name = this.refs.name.value
                     obj.email = this.refs.email.value
@@ -86,7 +86,7 @@ class Profile extends Component {
                 this.setState({ books: res.data.items })
                 store.searched_book = this.refs.book.value
                 store.books = res.data.items
-                localStorage.store = JSON.stringify(store)
+                sessionStorage.store = JSON.stringify(store)
             })
             .catch(console.error)
     }
@@ -110,7 +110,7 @@ class Profile extends Component {
                 this.state.books.splice(id, 1)
                 this.setState(this.state.books)
                 store.books = this.state.books
-                localStorage.store = JSON.stringify(store)
+                sessionStorage.store = JSON.stringify(store)
             })
             .catch(console.error)
     }

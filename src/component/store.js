@@ -1,4 +1,4 @@
-const store = typeof localStorage['store'] != "undefined" ? JSON.parse(localStorage.store) :
+const store = typeof sessionStorage['store'] != "undefined" ? JSON.parse(sessionStorage.store) :
     {
         LOGOUT: true,
         user_name: '',

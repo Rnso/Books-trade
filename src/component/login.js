@@ -28,7 +28,7 @@ class Login extends Component {
                     store.books = []
                     store.sharedbooks = []                    
                     store.LOGOUT = false   
-                    localStorage.store = JSON.stringify(store)           
+                    sessionStorage.store = JSON.stringify(store)           
                     ReactDOM.render(<Index />,document.getElementById('app'))
                     this.props.history.push('/profile')
                 }

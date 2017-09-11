@@ -19,7 +19,7 @@ class About extends Component {
     }
     signUp() {
         store.LOGOUT = true
-        localStorage.store = JSON.stringify(store)
+        sessionStorage.store = JSON.stringify(store)
         this.props.history.push('/register')
     }
     logIn() {
@@ -33,7 +33,7 @@ class About extends Component {
         store.city = ''
         store.country = ''
         store.email = ''
-        localStorage.store = JSON.stringify(store)
+        sessionStorage.store = JSON.stringify(store)
         this.props.history.push('/about')
     }
     render() {
@@ -47,12 +47,21 @@ class About extends Component {
                     <p>You can check out the library for the list of books available</p>
                     <p>In order to start trading books, you will need to sign up for an account first</p>
                     <p>You can then add books to library or request for trading books available in the library</p><br /><br />
-                    <Link to='/library'><button className='btn btn-warning'>GO TO LIBRARY</button></Link>&nbsp;&nbsp;&nbsp;<span className='span'>or</span>&nbsp;&nbsp;&nbsp;
+                    <div className='col-md-4'>
+                        <Link to='/library'><button className='btn btn-warning'>GO TO LIBRARY</button></Link>
+                    </div><br/>
                     {this.state.logout ? <span>
-                        <button className='btn btn-warning' onClick={this.signUp}>SIGN UP</button>&nbsp;&nbsp;&nbsp;<span className='span'>or</span>&nbsp;&nbsp;&nbsp;
-                        <button className='btn btn-warning' onClick={this.logIn}>LOG IN</button>
+                        <div className='col-md-4 text-center'>
+                            <button className='btn btn-warning' onClick={this.signUp}>SIGN UP</button>
+                      </div><br/>
+                        <div className='col-md-4'>
+                            <button className='btn btn-warning' onClick={this.logIn}>LOG IN</button>
+                        </div><br/>
                     </span> :
-                        <button className='btn btn-warning' onClick={this.logOut}>LOG OUT</button>}
+                        <div className='col-md-4'>
+                            <button className='btn btn-warning' onClick={this.logOut}>LOG OUT</button>
+                        </div>
+                    }
                 </div><br /><br />
             </div>
         )

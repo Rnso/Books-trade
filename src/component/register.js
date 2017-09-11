@@ -30,6 +30,7 @@ class Register extends Component {
                     this.refs.pwd.value = ''
                     this.refs.city.value = ''
                     this.refs.country.value = ''
+                    this.setState({ errormsg: false })
                     $('#myModal').modal('show')
                 })
                 .catch(console.error)
