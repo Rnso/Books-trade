@@ -33,7 +33,7 @@ class About extends Component {
         store.city = ''
         store.country = ''
         store.email = ''
-        sessionStorage.store = JSON.stringify(store)
+        sessionStorage.removeItem('store')
         this.props.history.push('/about')
     }
     render() {
