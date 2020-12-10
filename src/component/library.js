@@ -72,7 +72,7 @@ class Library extends Component {
         store.country = ''
         store.email = ''
         sessionStorage.removeItem('store')
-        this.props.history.push('/')
+        //this.props.history.push('/')
     }
 
     render() {
