@@ -34,7 +34,7 @@ class About extends Component {
         store.country = ''
         store.email = ''
         sessionStorage.removeItem('store')
-        this.props.history.push('/about')
+        this.props.history.push('/')
     }
     render() {
         const { history } = this.props

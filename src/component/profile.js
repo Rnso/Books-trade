@@ -56,7 +56,7 @@ class Profile extends Component {
         store.country = ''
         store.email = ''
         sessionStorage.removeItem('store')
-        this.props.history.push('/about')
+        this.props.history.push('/')
     }
 
     editProfile(e) {
