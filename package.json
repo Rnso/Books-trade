@@ -6,7 +6,6 @@
   "scripts": {
     "start": "babel-node server.js --ignore public/",
     "dev": "webpack-dev-server --inline --hot",
-    "build": "NODE_ENV=development webpack -wd",
     "prod": "NODE_ENV=production webpack -wp"
   },
   "author": "",
