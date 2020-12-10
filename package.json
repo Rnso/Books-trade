@@ -4,7 +4,7 @@
   "description": "Trade Books",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server.js --ignore public/",
+    "start": "babel-node server.js --ignore public/",
     "dev": "webpack-dev-server --inline --hot",
     "build": "NODE_ENV=development webpack -wd",
     "prod": "NODE_ENV=production webpack -wp"
@@ -19,9 +19,10 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "moment": "^2.18.1",
-    "mongodb": "^2.2.31",
+    "mongodb": "^3.6.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2"

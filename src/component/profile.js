@@ -15,6 +15,8 @@ class Profile extends Component {
         this.state.yourrequest = []
         this.state.otherrequest = []
         this.state.modalbooks = []
+        this.state.logout = store.LOGOUT
+        this.logOut = this.logOut.bind(this)
         this.editProfile = this.editProfile.bind(this)
         this.saveProfile = this.saveProfile.bind(this)
         this.searchBook = this.searchBook.bind(this)
@@ -44,6 +46,19 @@ class Profile extends Component {
             })
             .catch(console.error)
     }
+
+    logOut() {
+        store.LOGOUT = true
+        this.setState({ logout: store.LOGOUT })
+        store.user_id = ''
+        store.user_name = ''
+        store.city = ''
+        store.country = ''
+        store.email = ''
+        sessionStorage.removeItem('store')
+        this.props.history.push('/about')
+    }
+
     editProfile(e) {
         e.preventDefault()
         this.refs.name.value = store.user_name
@@ -178,100 +193,111 @@ class Profile extends Component {
     }
     render() {
         return (
-            <div className='container'><br />
-                <div id="profileModal" className="modal fade" role="dialog">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                <h4 className="modal-title">Edit Your Profile</h4>
-                            </div>
-                            <div className="modal-body">
-                                <form onSubmit={this.saveProfile}>
-                                    <div className="form-group">
-                                        <label >NAME:</label>
-                                        <input type="text" className="form-control" ref="name" placeholder='Ex. John Smith' />
-                                    </div>
-                                    <div className="form-group">
-                                        <label >EMAIL:</label>
-                                        <input type="email" className="form-control" ref="email" placeholder='Ex. john@gmail.com' />
-                                    </div>
-                                    <div className="form-group">
-                                        <label >CITY:</label>
-                                        <input type="text" className="form-control" ref="city" placeholder='Ex. New York' />
-                                    </div>
-                                    <div className="form-group">
-                                        <label >COUNTRY:</label>
-                                        <input type="text" className="form-control" ref="country" placeholder='Ex. US' />
-                                    </div><br />
-                                    <div className='text-center'>
-                                        <button type='submit' className="btn btn-success">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+            <div>
+                {!this.state.logout &&
+                    <div className='logout'>
+                        <h5 className='editprofile'>Log out<span>&nbsp;&nbsp;<a href=''><i className="fa fa-sign-out" onClick={this.logOut}></i></a></span></h5>
                     </div>
-                </div>
-                <div id="bookModal" className="modal fade" role="dialog">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-body">
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                <br />
-                                <div className='col-md-12'></div>
-                                {this.state.modalbooks.map((item, i) => {
-                                    return <div key={i} className='col-md-4 text-center'>
-                                        <h4>{item.title}</h4>
-                                        <img src={item.image} alt={item.title} height='180px' />
-                                        <div>
-                                            {item.pending == true && item.user_id === store.user_id && item.available == false ?
-                                                <button id={i} className='btn btn-success' onClick={this.acceptBooks}>ACCEPT THE BOOK</button> : ''}
-                                            {item.pending == false && item.available == false ?
-                                                <button id={i} className='btn btn-success'>REQUEST ACCEPTED</button> : ''}
+                }
+                <div className='container'><br />
+                    <div id="profileModal" className="modal fade" role="dialog">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title">Edit Your Profile</h4>
+                                </div>
+                                <div className="modal-body">
+                                    <form onSubmit={this.saveProfile}>
+                                        <div className="form-group">
+                                            <label >NAME:</label>
+                                            <input type="text" className="form-control" ref="name" placeholder='Ex. John Smith' />
                                         </div>
-                                    </div>
-                                })}
-                                <div className='col-md-12'></div>
-                            </div>
-                            <div className="modal-footer">
+                                        <div className="form-group">
+                                            <label >EMAIL:</label>
+                                            <input type="email" className="form-control" ref="email" placeholder='Ex. john@gmail.com' />
+                                        </div>
+                                        <div className="form-group">
+                                            <label >CITY:</label>
+                                            <input type="text" className="form-control" ref="city" placeholder='Ex. New York' />
+                                        </div>
+                                        <div className="form-group">
+                                            <label >COUNTRY:</label>
+                                            <input type="text" className="form-control" ref="country" placeholder='Ex. US' />
+                                        </div><br />
+                                        <div className='text-center'>
+                                            <button type='submit' className="btn btn-success">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className='text-center'>
-                    <h2 className='textshadow'>PROFILE</h2><br /><br />
-                </div>
-                <h5 className='editprofile'>Edit profile<span>&nbsp;&nbsp;<a href=''><i className="fa fa-pencil-square-o" onClick={this.editProfile}></i></a></span></h5>
-                <div className='col-md-3 profile'>
-                    <p><i className='fa fa-user'></i>&nbsp;{this.state.name}</p>
-                    <p><i className='fa fa-envelope'></i>&nbsp;{this.state.email}</p>
-                    <p><i className='fa fa-location-arrow'></i>&nbsp;{this.state.city}, {this.state.country}</p><hr />
-                    <p><button className='btn btn-primary book_btn' onClick={this.handleSharedBooks}>You posted : {this.state.totalsharedbooks} books</button></p>
-                    <p><button className='btn btn-warning book_btn' onClick={this.handleYourRequestBooks}>You requested : {this.state.totalyourequest} books</button></p>
-                    <p> <button className='btn btn-success book_btn' onClick={this.handleOthersRequestBooks}>Request pending : {this.state.totalotherrequest} books</button></p><br />
-                </div><br />
-                <div className='col-md-9'>
-                    <form onSubmit={this.searchBook}>
-                        <div className="input-group">
-                            <input type="text" className="form-control" placeholder="Enter the name of book" ref="book" />
-                            <div className="input-group-btn">
-                                <button className="btn btn-default" type="submit">
-                                    <i className="glyphicon glyphicon-search"></i>
-                                </button>
+                    <div id="bookModal" className="modal fade" role="dialog">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-body">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <br />
+                                    <div className='col-md-12'></div>
+                                    {this.state.modalbooks.map((item, i) => {
+                                        return <div key={i} className='col-md-4 text-center'>
+                                            <h4>{item.title}</h4>
+                                            <img src={item.image} alt={item.title} height='180px' />
+                                            <div>
+                                                {item.pending == true && item.user_id === store.user_id && item.available == false ?
+                                                    <button id={i} className='btn btn-success' onClick={this.acceptBooks}>ACCEPT THE BOOK</button> : ''}
+                                                {item.pending == false && item.available == false ?
+                                                    <button id={i} className='btn btn-success'>REQUEST ACCEPTED</button> : ''}
+                                            </div>
+                                        </div>
+                                    })}
+                                    <div className='col-md-12'></div>
+                                </div>
+                                <div className="modal-footer">
+                                </div>
                             </div>
                         </div>
-                    </form><br /><br />
-                    {this.state.books.map((item, i) => {
-                        let image
-                        item.volumeInfo.imageLinks === undefined ? image = '' : image = item.volumeInfo.imageLinks.thumbnail
-                        return <div key={i} className='col-md-4 books'>
-                            <div className='text-center'>
-                                <h4>{item.volumeInfo.title}</h4>
-                                <img src={image} alt={item.volumeInfo.title} height='180px' />
-                                <button id={i} className='btn btn-default' onClick={this.addBooks}><i className="fa fa-plus"></i>&nbsp;&nbsp; POST TO LIBRARY</button>
+                    </div>
+                    <div className='text-center'>
+                        <h2 className='textshadow'>PROFILE</h2><br /><br />
+                    </div>
+
+                    <div className='profile-action'>
+                        <h5 className='editprofile'>Edit profile<span>&nbsp;&nbsp;<a href=''><i className="fa fa-pencil-square-o" onClick={this.editProfile}></i></a></span></h5>&nbsp;&nbsp;
+                </div>
+
+                    <div className='col-md-3 profile'>
+                        <p><i className='fa fa-user'></i>&nbsp;{this.state.name}</p>
+                        <p><i className='fa fa-envelope'></i>&nbsp;{this.state.email}</p>
+                        <p><i className='fa fa-location-arrow'></i>&nbsp;{this.state.city}, {this.state.country}</p><hr />
+                        <p><button className='btn btn-primary book_btn' onClick={this.handleSharedBooks}>You posted : {this.state.totalsharedbooks} books</button></p>
+                        <p><button className='btn btn-warning book_btn' onClick={this.handleYourRequestBooks}>You requested : {this.state.totalyourequest} books</button></p>
+                        <p> <button className='btn btn-success book_btn' onClick={this.handleOthersRequestBooks}>Request pending : {this.state.totalotherrequest} books</button></p><br />
+                    </div><br />
+                    <div className='col-md-9'>
+                        <form onSubmit={this.searchBook}>
+                            <div className="input-group">
+                                <input type="text" className="form-control" placeholder="Enter the name of book" ref="book" />
+                                <div className="input-group-btn">
+                                    <button className="btn btn-default" type="submit">
+                                        <i className="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    })}
+                        </form><br /><br />
+                        {this.state.books.map((item, i) => {
+                            let image
+                            item.volumeInfo.imageLinks === undefined ? image = '' : image = item.volumeInfo.imageLinks.thumbnail
+                            return <div key={i} className='col-md-4 books'>
+                                <div className='text-center'>
+                                    <h4>{item.volumeInfo.title}</h4>
+                                    <img src={image} alt={item.volumeInfo.title} height='180px' />
+                                    <button id={i} className='btn btn-default' onClick={this.addBooks}><i className="fa fa-plus"></i>&nbsp;&nbsp; POST TO LIBRARY</button>
+                                </div>
+                            </div>
+                        })}
+                    </div>
                 </div>
             </div>
         )
